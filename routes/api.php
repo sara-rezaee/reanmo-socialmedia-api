@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -23,4 +23,5 @@ Route::post('/login', [AuthController::class, 'signin']);
 //Protected routes
 Route::group(['middleware' => ['auth:sanctum']], function(){
     Route::post('/logout', [AuthController::class, 'signout']);
+    Route::get('/user', [ProfileController::class, 'showProfile']);
 });
