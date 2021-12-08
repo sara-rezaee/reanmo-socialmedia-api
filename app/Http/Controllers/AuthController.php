@@ -4,12 +4,38 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules\Password;
 use App\Models\User;
 
 class AuthController extends Controller
 {
-    public function store(Request $request)
+
+    public function signup(Request $request)
+    {
+        $attributes = $request->validate([
+            'email' => 'required|string|unique:users,email',
+            'password'=> [
+                'required',
+                'confirmed',
+                'max:64',
+                Password::min(8)
+                    ->letters()
+                    ->numbers()
+                    ->symbols(['!','@','#','$','%','^','-','_','+','='])
+            ]
+        ]);
+        $attributes['password'] = bcrypt($attributes['password']);
+        $user = User::create($attributes);
+        $token = $user->createToken('auth_token')->plainTextToken;
+
+        $response = [
+            'user' => $user,
+            'token' => $token
+        ];
+        return response($response, 201);
+    }
+
+    public function signin(Request $request)
     {
         $attributes = $request->validate([
             'email' => 'required|string',
@@ -58,7 +84,7 @@ class AuthController extends Controller
     }
 
     //signing out user by revoking token
-    public function destroy()
+    public function signout()
     {
         auth()->user()->tokens()->delete();
 
