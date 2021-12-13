@@ -32,7 +32,7 @@ class UpdateUserRequest extends FormRequest
             'last_name' => 'required',
             'email' => ['required', 'email', 'max:255', Rule::unique('users')->ignore(auth()->id())],
             'password'=> [
-                'required',
+                'filled',
                 'confirmed',
                 'max:64',
                 Password::min(8)
