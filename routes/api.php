@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TweetController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -24,4 +25,5 @@ Route::post('/login', [AuthController::class, 'signin']);
 Route::group(['middleware' => ['auth:sanctum']], function(){
     Route::post('/logout', [AuthController::class, 'signout']);
     Route::get('/user', [ProfileController::class, 'showProfile']);
+    Route::get('/tweets', [TweetController::class, 'showTweets']);
 });

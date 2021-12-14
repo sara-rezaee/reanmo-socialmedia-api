@@ -12,13 +12,37 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    public function tweets()
+    {
+        return $this->hasMany(Tweet::class);
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    public function likes()
+    {
+        return $this->morphMany(Like::class, 'likeable');
+    }
+
+    // Get all users that we follow them
+    public function followings()
+    {
+        return $this->belongsToMany(User::class, 'followers', 'follower_id', 'user_id');
+    }
+
+
     /**
      * The attributes that are mass assignable.
      *
      * @var string[]
      */
     protected $fillable = [
-        'name',
+        'first_name',
+        'last_name',
+        'avatar_url',
         'email',
         'password',
     ];
