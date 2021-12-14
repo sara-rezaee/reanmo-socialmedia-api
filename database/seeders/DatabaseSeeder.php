@@ -21,9 +21,9 @@ class DatabaseSeeder extends Seeder
             'last_name' => 'R',
             'first_name' => 'Sara',
             'avatar_url' => 'sara_r.jpg',
-            'remember_token' => '5|wJ0EZpCgom8nxqVc8vBbVkuDR5HjjkvFOFfldsw4',
+            //'remember_token' => '5|wJ0EZpCgom8nxqVc8vBbVkuDR5HjjkvFOFfldsw4',
             'email' => 's.tamasok@reanmo.com',
-            'password' => bcrypt('password'),
+            'password' => 'password',
         ]);
 
         $tweet = Tweet::factory()

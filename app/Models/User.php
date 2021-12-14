@@ -42,9 +42,9 @@ class User extends Authenticatable
     protected $fillable = [
         'first_name',
         'last_name',
-        'avatar_url',
         'email',
         'password',
+        'avatar_url',
     ];
 
     /**
@@ -66,4 +66,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function setPasswordAttribute($password)
+    {
+        $this->attributes['password'] = bcrypt($password);
+    }
 }

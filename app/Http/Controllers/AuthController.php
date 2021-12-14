@@ -14,7 +14,6 @@ class AuthController extends Controller
     {
         $attributes = $request->validated();
 
-        $attributes['password'] = bcrypt($attributes['password']);
         $user = User::create($attributes);
         $user = new UserResource($user);
         $token = $user->createToken('auth_token')->plainTextToken;
@@ -55,7 +54,7 @@ class AuthController extends Controller
     public function signout()
     {
         Auth::user()->tokens()->delete();
-        Auth::logout();
+        Auth::guard('web')->logout();
 
         return [
             'message' => 'Token is Revoked'
