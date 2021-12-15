@@ -29,19 +29,9 @@ class Tweet extends Model
     {
         return $this->likes()->where('user_id', auth()->id())->exists();
     }
-
-    public function likes_count()
-    {
-        return $this->likes()->count();
-    }
-
+    
     public function comments()
     {
         return $this->hasMany(Comment::class);
-    }
-
-    public function comments_count()
-    {
-        return $this->comments()->count();
     }
 }
