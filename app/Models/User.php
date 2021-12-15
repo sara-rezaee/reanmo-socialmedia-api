@@ -32,7 +32,11 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(User::class, 'followers', 'follower_id', 'user_id');
     }
-
+    // Get a list of users that are following us
+    public function followers()
+    {
+        return $this->belongsToMany(User::class, 'followers', 'user_id','follower_id');
+    }
 
     /**
      * The attributes that are mass assignable.
@@ -66,4 +70,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function getFullNameAttribute()
+    {
+        return ucfirst($this->first_name) . ' ' . ucfirst($this->last_name);;
+    }
 }

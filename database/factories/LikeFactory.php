@@ -17,11 +17,11 @@ class LikeFactory extends Factory
     public function definition()
     {
         $likeable = [
-        Tweet::class,
-        Comment::class,
-    ];
-    $likeable_type = $this->faker->randomElement($likeable);
-    $likeable_id = $likeable_type::factory()->create()->id;
+            Tweet::class,
+            Comment::class,
+        ];
+        $likeable_type = $this->faker->randomElement($likeable);
+        $likeable_id = $likeable_type::factory()->create()->id;
         return [
             'user_id' => User::factory(),
             'likeable_type' => $likeable_type,

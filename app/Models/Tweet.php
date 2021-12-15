@@ -25,7 +25,7 @@ class Tweet extends Model
         return $this->morphMany(Like::class, 'likeable');
     }
 
-    public function is_Liked()
+    public function is_liked()
     {
         return $this->likes()->where('user_id', auth()->id())->exists();
     }

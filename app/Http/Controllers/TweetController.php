@@ -8,7 +8,7 @@ use App\Models\Tweet;
 
 class TweetController extends Controller
 {
-    public function showTweets()
+    public function index()
     {
         $user = Auth::user();
         $user_id = $user->followings->pluck('id');

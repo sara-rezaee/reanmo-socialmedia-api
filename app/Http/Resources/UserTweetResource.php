@@ -16,7 +16,7 @@ class UserTweetResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'full_name' => $this->first_name. ' ' .$this->last_name,
+            'full_name' => $this->full_name,
             'avatar_url' => $this->avatar_url,
         ];
     }
