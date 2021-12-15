@@ -13,9 +13,10 @@ class TweetController extends Controller
     {
         $user = Auth::user();
         $user_id = $user->followings->pluck('id');
-        $tweets = Tweet::withCount(['likes', 'comments' => function (Builder $query) {
-            $query->whereIn('user_id', $user_id);
-        }])->get();
+        $tweets = Tweet::whereIn('user_id', $user_id)
+            ->withCount('likes')
+            ->withCount('comments')
+            ->get();
         return TweetResource::collection($tweets);
     }
 }
