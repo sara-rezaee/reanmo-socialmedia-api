@@ -20,9 +20,9 @@ class TweetResource extends JsonResource
             'body' => $this->body,
             'image_url' => $this->image_url,
             'user' => UserTweetResource::make($this->user),
-            'likes_count' => $this->likes_count(),
+            'likes_count' => $this->likes_count,
             'is_liked' => $this->is_liked(),
-            'comments_count' => $this->comments_count(),
+            'comments_count' => $this->comments_count,
             'displayed_created_at' => $this->created_at->diffForHumans(),
         ];
     }
