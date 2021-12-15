@@ -3,9 +3,11 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
 
-class StoreUserRequest extends FormRequest
+class UpdateUserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,9 +27,12 @@ class StoreUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'required|string|unique:users,email',
+            'avatar' => ['sometimes', 'image'],
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'email' => ['required', 'email', 'max:255', Rule::unique('users')->ignore(auth()->id())],
             'password'=> [
-                'required',
+                'filled',
                 'confirmed',
                 'max:64',
                 Password::min(8)
@@ -35,12 +40,7 @@ class StoreUserRequest extends FormRequest
                     ->numbers()
                     ->symbols(['!','@','#','$','%','^','-','_','+','='])
             ],
+            'password_old' => 'password',
         ];
     }
-    // public function validated()
-    // {
-    //     return array_merge(parent::validated(), [
-    //         'user_id' => $this->user()->id
-    //     ]);
-    // }
 }

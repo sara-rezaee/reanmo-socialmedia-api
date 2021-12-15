@@ -46,9 +46,9 @@ class User extends Authenticatable
     protected $fillable = [
         'first_name',
         'last_name',
-        'avatar_url',
         'email',
         'password',
+        'avatar_url',
     ];
 
     /**
@@ -72,6 +72,11 @@ class User extends Authenticatable
 
     public function getFullNameAttribute()
     {
-        return ucfirst($this->first_name) . ' ' . ucfirst($this->last_name);;
+        return ucfirst($this->first_name) . ' ' . ucfirst($this->last_name);
+    }
+
+    public function setPasswordAttribute($password)
+    {
+        $this->attributes['password'] = bcrypt($password);
     }
 }

@@ -26,4 +26,5 @@ Route::group(['middleware' => ['auth:sanctum']], function(){
     Route::post('/logout', [AuthController::class, 'signout']);
     Route::get('/user', [ProfileController::class, 'showProfile']);
     Route::get('/tweets', [TweetController::class, 'index']);
+    Route::put('/user', [ProfileController::class, 'updateProfile']);
 });
