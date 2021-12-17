@@ -27,7 +27,6 @@ class StoreTweetRequest extends FormRequest
             'body' => 'required|string',
             'image_url'=> [
                 'required',
-                'confirmed',
             ],
         ];
     }
