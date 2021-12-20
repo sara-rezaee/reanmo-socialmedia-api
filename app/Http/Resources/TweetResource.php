@@ -23,9 +23,7 @@ class TweetResource extends JsonResource
             'image_url' => $this->image_url,
             'user' => UserTweetResource::make($this->whenLoaded('user')),
             'likes_count' => $this->likes_count,
-            'is_liked' => $this->with('likes.user_id', Auth::user()->id, function () {
-                return True;
-            }),
+            'is_liked'  => $this->likes->where('user_id', auth()->id())->isNotEmpty(),
             'comments_count' => $this->comments_count,
             'displayed_created_at' => $this->created_at->diffForHumans(),
         ];
