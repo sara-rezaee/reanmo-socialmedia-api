@@ -14,26 +14,16 @@ class TweetController extends Controller
     {
         $user = Auth::user();
         $user_id = $user->followings->pluck('id');
-        //$is_liked = $user_id->likes;
-        $tweets = Tweet::whereIn('user_id', $user_id)
+
+         $tweets = Tweet::query()
+            ->whereIn('user_id', $user_id)
+            ->with('user')
             ->withCount([
                 'comments',
-                'likes'])
-            //->whereHas('likes', function ($query) use ($user) {
-            //    $query->where('likes.user_id', '=', $user->id);
-            //})
-            // ->when($is_liked, function ($query, $is_liked) {
-            //     return $query->where('user_id', '=', auth()->id());
-            // })
+                'likes'
+            ])
             ->get();
-        // $tweets = select(['user_id' FROM $tweets)
-        //         ->where('user_id', auth()->id())
-        //     ])
-        // ->get();
-        // $tweets = $tweets->whereHas('likes', function ($query) {
-        //     $query->where('user_id', Auth::id());
-        // })->get();
-        //($tweets->likes()->where('user_id', auth()->id())->exists())
+
         return TweetResource::collection($tweets);
     }
 }
