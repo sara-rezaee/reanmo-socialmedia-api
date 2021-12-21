@@ -34,7 +34,7 @@ class TweetController extends Controller
         {
             $file = $request->file('image_url');
             $extension = $file->getClientOriginalExtension();
-            $filename = time().'.'.$extension;
+            $filename = '/public/' . time().'.'.$extension;
             $file->storeAs('public',$filename);
             $attributes['image_url'] = $filename;
         }
