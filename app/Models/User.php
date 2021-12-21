@@ -23,7 +23,7 @@ class User extends Authenticatable
 
     public function likes()
     {
-        return $this->hasMany(Like::class, 'likeable');
+        return $this->hasMany(Like::class);
     }
 
     // Get all users that we follow them
