@@ -3,10 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\TweetResource;
-use App\Models\Like;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Tweet;
-use Illuminate\Database\Eloquent\Builder;
 
 class TweetController extends Controller
 {
@@ -17,7 +15,7 @@ class TweetController extends Controller
 
          $tweets = Tweet::query()
             ->whereIn('user_id', $user_id)
-            ->with('user')
+            ->with('user', 'likes')
             ->withCount([
                 'comments',
                 'likes'
