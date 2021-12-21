@@ -24,8 +24,8 @@ class StoreTweetRequest extends FormRequest
     public function rules()
     {
         return [
-            'body' => 'required|string',
-            'image_url'=> 'nullable|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'body' => ['required', 'string'],
+            'image_url'=> ['sometimes', 'image'],
         ];
     }
 }

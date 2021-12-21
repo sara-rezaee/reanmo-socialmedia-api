@@ -30,17 +30,17 @@ class TweetController extends Controller
     {
         $attributes = $request->validated();
 
-        if(request()->hasFile('image_url'))
+        if($request->hasFile('image_url'))
         {
-            $file = request()->file('image_url');
+            $file = $request->file('image_url');
             $extension = $file->getClientOriginalExtension();
             $filename = time().'.'.$extension;
-            $file->storeAs('public/images',$filename);
+            $file->storeAs('public',$filename);
             $attributes['image_url'] = $filename;
         }
 
         $attributes['user_id'] = auth()->id();
         $tweet = Tweet::create($attributes);
-        //return new TweetResource($tweet);
+        return new TweetResource($tweet);
     }
 }
