@@ -28,7 +28,9 @@ class TweetController extends Controller
     public function show()
     {
         $user = Auth::user();
-        $tweets = $user->tweets;
+
+        $tweets = $user->tweets->load('user', 'likes')->loadCount(['comments', 'likes']);
+
         return TweetResource::collection($tweets);
     }
 }
