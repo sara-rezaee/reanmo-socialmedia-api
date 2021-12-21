@@ -41,6 +41,9 @@ class TweetController extends Controller
 
         $attributes['user_id'] = auth()->id();
         $tweet = Tweet::create($attributes);
-        //return new TweetResource($tweet);
+
+        $tweet->load('user', 'likes')->loadCount(['comments', 'likes']);
+
+        return new TweetResource($tweet);
     }
 }
