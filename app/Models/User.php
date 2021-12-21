@@ -23,7 +23,7 @@ class User extends Authenticatable
 
     public function likes()
     {
-        return $this->morphMany(Like::class, 'likeable');
+        return $this->hasMany(Like::class, 'likeable');
     }
 
     // Get all users that we follow them
