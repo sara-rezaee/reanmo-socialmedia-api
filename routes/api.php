@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TweetController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\UserTweetController;
 use Illuminate\Support\Facades\Route;
 
@@ -28,6 +29,7 @@ Route::group(['middleware' => ['auth:sanctum']], function(){
     Route::get('/user', [ProfileController::class, 'showProfile']);
     Route::get('/tweets', [TweetController::class, 'index']);
     Route::put('/user', [ProfileController::class, 'updateProfile']);
+    Route::get('/tweets/{id}', [CommentController::class, 'index']);
     Route::post('/tweets', [TweetController::class, 'store']);
     Route::get('/user/tweets', [UserTweetController::class, 'index']);
 });
