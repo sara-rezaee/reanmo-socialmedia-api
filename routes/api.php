@@ -28,5 +28,6 @@ Route::group(['middleware' => ['auth:sanctum']], function(){
     Route::get('/user', [ProfileController::class, 'showProfile']);
     Route::get('/tweets', [TweetController::class, 'index']);
     Route::put('/user', [ProfileController::class, 'updateProfile']);
+    Route::post('/tweets', [TweetController::class, 'store']);
     Route::get('/user/tweets', [UserTweetController::class, 'index']);
 });

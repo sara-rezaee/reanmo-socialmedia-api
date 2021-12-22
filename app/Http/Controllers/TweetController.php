@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreTweetRequest;
 use App\Http\Resources\TweetResource;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Tweet;
@@ -23,5 +24,26 @@ class TweetController extends Controller
             ->get();
 
         return TweetResource::collection($tweets);
+    }
+
+    public function store(StoreTweetRequest $request)
+    {
+        $attributes = $request->validated();
+
+        if($request->hasFile('image_url'))
+        {
+            $file = $request->file('image_url');
+            $extension = $file->getClientOriginalExtension();
+            $filename = '/public/' . time().'.'.$extension;
+            $file->storeAs('public',$filename);
+            $attributes['image_url'] = $filename;
+        }
+
+        $attributes['user_id'] = auth()->id();
+        $tweet = Tweet::create($attributes);
+
+        $tweet->load('user', 'likes')->loadCount(['comments', 'likes']);
+
+        return new TweetResource($tweet);
     }
 }
